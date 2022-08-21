@@ -1,11 +1,22 @@
 import React from "react";
 
-const AnimeList = ({ animeList, setAnimeInfo, animeComponent, handleList }) => {
+const AnimeList = ({ animeList,filterOption, setAnimeInfo, animeComponent, handleList }) => {
   const AddToList = animeComponent;
+
   return (
     <>
       {animeList
-        ? animeList.map((anime, index) => {
+        ? animeList
+        .filter(el=>{
+          if(filterOption==="") return true
+          for(let i=0;i<el.genres.length;i++){
+            if(el.genres[i].name===filterOption){
+              return true
+            }
+          }
+          return false;
+        })
+        .map((anime, index) => {
             return (
               <div
                 className="card"
