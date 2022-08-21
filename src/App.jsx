@@ -3,6 +3,7 @@ import "./App.css";
 import AddToList from "./components/AddToList";
 import AnimeInfo from "./components/AnimeInfo";
 import AnimeList from "./components/AnimeList";
+import FilterListData from "./components/FilterListData";
 import RemoveFromList from "./components/RemoveFromList";
 
 //geting values from local storage
@@ -17,6 +18,8 @@ const getLsData = () => {
 
 function App() {
   const [animeData, setAnimeData] = useState();
+  const [genreData, setGenreData] = useState([]);
+  const [filterOption, setfilterOption] = useState("");
   const [timeoutId, SetTimeoutId] = useState();
   const [animeInfo, setAnimeInfo] = useState();
   const [myAnimeList, setMyAnimeList] = useState(getLsData);
@@ -38,11 +41,24 @@ function App() {
     setMyAnimeList(newArray);
   };
 
+  const getGenreData =(data)=>{
+    let genreList =[]
+    data.forEach(el=>{
+      el.genres.forEach(data=> {
+        if(!genreList.includes(data.name)){
+        genreList.push(data.name)
+        }
+      } )
+    })
+    setGenreData(genreList)
+  }
+
   const getData = async (searchString) => {
     const res = await fetch(
       `https://api.jikan.moe/v4/anime?q=${searchString}&limit=20`
     );
     const resData = await res.json();
+    getGenreData(resData.data)
     setAnimeData(resData.data);
   };
 
@@ -86,11 +102,16 @@ function App() {
             <div className="row">
               <AnimeList
                 animeList={animeData}
+                filterOption={filterOption}
                 setAnimeInfo={setAnimeInfo}
                 animeComponent={AddToList}
                 handleList={(anime) => addTo(anime)}
               />
             </div>
+            <FilterListData
+            genreData = {genreData}
+            setfilterOption = {setfilterOption}
+            />
 
             <h3 className="headingText">My Anime List</h3>
 
