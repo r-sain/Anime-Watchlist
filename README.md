@@ -1,6 +1,8 @@
-# Getting Started with Create React App
+# Link to live website
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+https://unrivaled-empanada-76e48e.netlify.app/
+
+Its an Anime watchlist app, which fetches data from jikan api and shows you details of your favourite and your can add and remove from your list and its also saved in local storage.
 
 ## Available Scripts
 
