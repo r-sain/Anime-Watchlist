@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./App.css";
 import AddToList from "./components/AddToList";
 import AnimeInfo from "./components/AnimeInfo";
 import AnimeList from "./components/AnimeList";
 import RemoveFromList from "./components/RemoveFromList";
+import FilterListData from "./components/FilterListData";
 
 //geting values from local storage
 const getLsData = () => {
@@ -17,6 +18,8 @@ const getLsData = () => {
 
 function App() {
   const [animeData, setAnimeData] = useState();
+  const [genreData, setGenreData] = useState([]);
+  const [filterOption, setfilterOption] = useState("");
   const [timeoutId, SetTimeoutId] = useState();
   const [animeInfo, setAnimeInfo] = useState();
   const [myAnimeList, setMyAnimeList] = useState(getLsData);
@@ -37,12 +40,23 @@ function App() {
     });
     setMyAnimeList(newArray);
   };
-
+  const getGenreData = (data) => {
+    let genreList = [];
+    data.forEach((el) => {
+      el.genres.forEach((data) => {
+        if (!genreList.includes(data.name)) {
+          genreList.push(data.name);
+        }
+      });
+    });
+    setGenreData(genreList);
+  };
   const getData = async (searchString) => {
     const res = await fetch(
       `https://api.jikan.moe/v4/anime?q=${searchString}&limit=20`
     );
     const resData = await res.json();
+    getGenreData(resData.data);
     setAnimeData(resData.data);
   };
 
@@ -82,17 +96,26 @@ function App() {
 
         <div className="rightDiv">
           <div className="animeRow">
-            <h3 className="headingText">Anime</h3>
+            <h3 className="headingText">
+              Anime
+              <span>
+                <FilterListData
+                  genreData={genreData}
+                  setfilterOption={setfilterOption}
+                />
+              </span>
+            </h3>
             <div className="row">
               <AnimeList
                 animeList={animeData}
+                filterOption={filterOption}
                 setAnimeInfo={setAnimeInfo}
                 animeComponent={AddToList}
                 handleList={(anime) => addTo(anime)}
               />
             </div>
 
-            <h3 className="headingText">My Anime List</h3>
+            <h3 className="headingText">My Anime List </h3>
 
             <div className="row">
               {myAnimeList.length < 1 && (

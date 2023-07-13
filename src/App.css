@@ -47,8 +47,9 @@
 }
 
 .leftDiv {
-  height: 85vh;
+  height: 91vh !important;
   width: 20vw;
+  box-sizing: border-box;
   /* background-color: #768e8a; */
   flex: 1 2 auto;
 }
@@ -58,6 +59,7 @@
   width: 80vw;
   /* background-color: aqua; */
   flex: 1 1 auto;
+  padding-right: 10px;
 }
 
 .animeRow {
@@ -78,6 +80,8 @@
   background-color: rgb(12, 61, 57);
   padding: 5px;
   margin: 5px;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
 .cardimg > img {
@@ -86,22 +90,18 @@
 }
 
 .animeInfo {
-  /* padding: 5px; */
   position: relative;
   width: 100%;
   height: 40px;
   display: flex;
   justify-content: center;
   color: rgb(206, 228, 221);
-  /* background-color: aliceblue; */
-  /* overflow: hidden; */
 }
 .leftDiv {
   height: 89vh;
   background-color: rgb(86, 107, 102);
   display: flex;
   flex-direction: column;
-  /* justify-content: center; */
   align-items: center;
   margin-right: 10px;
   padding-left: 10px;
@@ -124,8 +124,8 @@
 }
 
 .animeInfoComps img {
-  height: 180px;
-  width: 130px;
+  height: 40%;
+  width: 70%;
 }
 
 .infoinfo {
@@ -136,6 +136,10 @@
   justify-content: space-between;
 }
 
+.infoinfo button {
+  cursor: pointer;
+}
+
 .inftit {
   text-align: center;
 }
@@ -143,7 +147,6 @@
 .overlayCard {
   position: absolute;
   padding-bottom: 10px;
-  /* bottom: 0; */
   width: 100%;
   height: 20px;
   background-color: rgb(67, 115, 113);
@@ -154,9 +157,32 @@
   font-size: 10px;
   color: aliceblue;
   transition: 0.5s;
+  cursor: pointer;
 }
 
 .animeInfo:hover .overlayCard {
   opacity: 1;
   height: 90%;
+}
+
+.genres {
+  height: 50px;
+  width: 70vw;
+  display: flex;
+  gap: 10px;
+  overflow-x: hidden;
+  align-items: center;
+}
+
+.genres button {
+  height: 50%;
+  font-size: 11px;
+  width: 80px;
+  text-overflow: ellipsis;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.myList {
+  padding-top: 10px;
 }
